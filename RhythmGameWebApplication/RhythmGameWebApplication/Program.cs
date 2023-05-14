@@ -1,10 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using RhythmGameWebApplication.Data;
 using System.Net.WebSockets;
-using System.Threading;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
