@@ -6,8 +6,21 @@
         <title>Unity WebGL Player | Rhythm Game Web App</title>
         <link rel="shortcut icon" href="~/unity/TemplateData/favicon.ico">
         <link rel="stylesheet" href="~/unity/TemplateData/style.css">
+        <link rel="stylesheet" href="~/unity/TemplateData/nav.css">
     </head>
     <body>
+        <div class="nav">
+            <input type="checkbox">
+            <span></span>
+            <span></span>
+            <div class="menu">
+                <li><a asp-controller="Home" asp-action="Index">home</a></li>
+                <li>|</li>
+                <li><a href="https://github.com/O-Bernal/CSI293---Capstone-Project">github</a></li>
+                <li>|</li>
+                <li><a href="#">sign in</a></li>
+            </div>
+        </div>
         <div id="unity-container" class="unity-desktop">
             <canvas id="unity-canvas" width=960 height=600></canvas>
             <div id="unity-loading-bar">
