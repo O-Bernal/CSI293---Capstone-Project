@@ -7,10 +7,10 @@ namespace MelodyRider_Back_End_System.Models
         [Key]
         public int ScoreId { get; set; }
 
-        [Required]
-        public int UserId { get; set; }
+		[Required]
+		public string UserId { get; set; } // In the context of ASP.NET Core Identity, UserId is a string by default. This is because the IdentityUser class, which the User model is inheriting from, has its Id property as a string.
 
-        [Required]
+		[Required]
         public int GameId { get; set; }
 
         [Required]

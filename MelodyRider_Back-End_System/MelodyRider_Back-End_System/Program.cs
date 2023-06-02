@@ -1,4 +1,6 @@
 using MelodyRider_Back_End_System.Data;
+using MelodyRider_Back_End_System.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Registers the DbContext and passes the connection string
 builder.Services.AddDbContext<GameDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Registers the Identity framework
+builder.Services.AddIdentity<User, IdentityRole>()
+	.AddEntityFrameworkStores<GameDbContext>()
+	.AddDefaultTokenProviders();
 
 // Add controllers with views
 builder.Services.AddControllersWithViews();
