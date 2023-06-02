@@ -12,12 +12,13 @@ body, .nav, .menu {
 
 .nav {
     position: relative;
-    background-color: #fff;
+    background-color: #444;
     padding: 20px;
     transition: 0.5s;
     border-radius: 50px;
     overflow: hidden;
     box-shadow: 0 8px 15px rgba(0,0,0,.2);
+    z-index: 1000;
 }
 
 .menu {
@@ -34,21 +35,21 @@ body, .nav, .menu {
 
 .menu li {
     list-style: none;
-    color: #666;
+    color: #eb2d7c;
     margin: 0 10px;
     font-weight: 600;
 }
 
 .menu li a {
     text-decoration: none;
-    color: #666;
+    color: #ababab;
     text-transform: uppercase;
     font-weight: 600;
     transition: 0.5s;
 }
 
 .menu li a:hover {
-    color: #161919;
+    color: #ffffff;
 }
 
 .nav input {
@@ -64,13 +65,13 @@ body, .nav, .menu {
     width: 30px;
     height: 4px;
     border-radius: 50px;
-    background-color: #666;
+    background-color: #ababab;
     pointer-events: none;
     transition: 0.5s;
 }
 
 .nav input:checked ~ span {
-    background-color: #666;
+    background-color: #eb2d7c;
 }
 
 .nav span:nth-child(2) {
