@@ -1,3 +1,5 @@
+@using Microsoft.AspNetCore.Identity;
+
 <!DOCTYPE html>
 <html lang="en-us">
     <head>
@@ -23,30 +25,45 @@
             </div>
         </div>
 
+        @inject UserManager<User> UserManager
+        @{
+            var user = await UserManager.GetUserAsync(User);
+        }
+        @if (user != null)
+        {
+            <div class="user-badge">
+                Hello, @user.UserName!
+                <button onclick="location.href='@Url.Action("Logout", "User")'">Logout</button>
+            </div>
+        }
+
         <div id="login-modal" class="modal">
             <div class="form-structor">
                 <div class="signup">
                     <h2 class="form-title" id="signup"><span>or</span>Sign up</h2>
-                    <!--Wrapped the template's form-holder in a <form> tag with a 'POST' method 'action' attribute 
-                        pointing to the 'Create' action in my UserController.-->
+                    <!-- Wrapped the form-holder with a form tag pointing to the UserController Create action -->
                     <form id="signup-form" method="post" action="/User/Create">
                         <div class="form-holder">
-                            <input type="text" class="input" placeholder="Name" name="Username" />
-                            <input type="email" class="input" placeholder="Email" name="Email" />
-                            <input type="password" class="input" placeholder="Password" name="Password" />
+                            <input type="text" class="input" placeholder="Name" name="NewUsername" />
+                            <input type="email" class="input" placeholder="Email" name="NewEmail" />
+                            <input type="password" class="input" placeholder="Password" name="NewPassword" />
                         </div>
-                        <div id="message"></div>
+                        <div id="signup-message"></div>
                         <button class="submit-btn">Sign up</button>
                     </form>
                 </div>
                 <div class="login slide-up">
                     <div class="center">
                         <h2 class="form-title" id="login"><span>or</span>Log in</h2>
-                        <div class="form-holder">
-                            <input type="email" class="input" placeholder="Email" />
-                            <input type="password" class="input" placeholder="Password" />
-                        </div>
-                        <button class="submit-btn">Log in</button>
+                        <!-- Wrapped the login-form with a form tag pointing to the UserController Login action -->
+                        <form id="login-form" method="post" action="/User/Login">
+                            <div class="form-holder">
+                                <input type="text" class="input" placeholder="Email or Username" name="UsernameOrEmail" />
+                                <input type="password" class="input" placeholder="Password" name="UserPassword" />
+                            </div>
+                            <div id="login-message"></div>
+                            <button type="submit" class="submit-btn">Log in</button>
+                        </form>
                     </div>
                 </div>
             </div>

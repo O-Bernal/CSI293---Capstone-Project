@@ -4,6 +4,11 @@ body {
     background: #333;
 }
 
+.error {
+    color: red !important;
+    text-align: center;
+}
+
 #unity-container {
     position: absolute;
     box-shadow: 0 8px 15px rgba(0,0,0,.2);
@@ -98,7 +103,7 @@ body {
     display: none 
 }
 
-/*Modal form CSS*/
+/* Modal Form CSS */
 .modal {
     position: fixed;
     z-index: 1;
@@ -144,6 +149,7 @@ body {
     background-image: url(/images/carbon-fiber1.jpg)
 }
 
+/* Signup Part */
 .form-structor .signup {
     position: absolute;
     top: 50%;
@@ -154,24 +160,23 @@ body {
     -webkit-transition: all .3s ease;
 }
 
-.form-structor .signup.slide-up {
+.form-structor .signup .slide-up {
     top: 5%;
     -webkit-transform: translate(-50%, 0%);
     -webkit-transition: all .3s ease;
 }
 
-.form-structor .signup.slide-up .form-holder,
-.form-structor .signup.slide-up .submit-btn {
+.form-structor .signup .slide-up .form-holder, .form-structor .signup.slide-up .submit-btn {
     opacity: 0;
     visibility: hidden;
 }
 
-.form-structor .signup.slide-up .form-title {
+.form-structor .signup .slide-up .form-title {
     font-size: 1em;
     cursor: pointer;
 }
 
-.form-structor .signup.slide-up .form-title span {
+.form-structor .signup .slide-up .form-title span {
     margin-right: 5px;
     opacity: 1;
     visibility: visible;
@@ -244,6 +249,7 @@ body {
     background-color: rgba(0,0,0,0.8);
 }
 
+/* Login Part */
 .form-structor .login {
     position: absolute;
     top: 20%;
@@ -357,8 +363,7 @@ body {
     -webkit-transition: all .3s ease;
 }
 
-.form-structor .login.slide-up .form-holder,
-.form-structor .login.slide-up .submit-btn {
+.form-structor .login.slide-up .form-holder, .form-structor .login.slide-up .submit-btn {
     opacity: 0;
     visibility: hidden;
     -webkit-transition: all .3s ease;

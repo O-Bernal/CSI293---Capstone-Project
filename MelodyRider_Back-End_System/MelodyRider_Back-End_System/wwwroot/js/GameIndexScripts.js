@@ -15,32 +15,32 @@ function unityShowBanner(msg, type) {
     function updateBannerVisibility() {
         warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
     }
-            var div = document.createElement('div');
-div.innerHTML = msg;
-warningBanner.appendChild(div);
-if (type == 'error') div.style = 'background: red; padding: 10px;';
-else {
-                if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
-setTimeout(function () {
-    warningBanner.removeChild(div);
-updateBannerVisibility();
-                }, 5000);
-            }
-updateBannerVisibility();
-        }
+    var div = document.createElement('div');
+    div.innerHTML = msg;
+    warningBanner.appendChild(div);
+    if (type == 'error') div.style = 'background: red; padding: 10px;';
+    else {
+        if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+        setTimeout(function () {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+        }, 5000);
+    }
+    updateBannerVisibility();
+}
 
 var buildUrl = "/unity/Build";
 var loaderUrl = buildUrl + "/unity.loader.js";
 var config = {
     dataUrl: buildUrl + "/unity.data.br",
-frameworkUrl: buildUrl + "/unity.framework.js.br",
-codeUrl: buildUrl + "/unity.wasm.br",
-streamingAssetsUrl: "StreamingAssets",
-companyName: "DefaultCompany",
-productName: "Rhythm Game Web App",
-productVersion: "1.0",
-showBanner: unityShowBanner,
-        };
+    frameworkUrl: buildUrl + "/unity.framework.js.br",
+    codeUrl: buildUrl + "/unity.wasm.br",
+    streamingAssetsUrl: "StreamingAssets",
+    companyName: "DefaultCompany",
+    productName: "Rhythm Game Web App",
+    productVersion: "1.0",
+    showBanner: unityShowBanner,
+};
 
 // By default Unity keeps WebGL canvas render target size matched with
 // the DOM size of the canvas element (scaled by window.devicePixelRatio)
@@ -50,32 +50,32 @@ showBanner: unityShowBanner,
 // config.matchWebGLToCanvasSize = false;
 
 if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-            // Mobile device style: fill the whole browser client area with the game canvas:
+    // Mobile device style: fill the whole browser client area with the game canvas:
 
-            var meta = document.createElement('meta');
-meta.name = 'viewport';
-meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-document.getElementsByTagName('head')[0].appendChild(meta);
-container.className = "unity-mobile";
-canvas.className = "unity-mobile";
+    var meta = document.createElement('meta');
+    meta.name = 'viewport';
+    meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+    document.getElementsByTagName('head')[0].appendChild(meta);
+    container.className = "unity-mobile";
+    canvas.className = "unity-mobile";
 
-// To lower canvas resolution on mobile devices to gain some
-// performance, uncomment the following line:
-// config.devicePixelRatio = 1;
+    // To lower canvas resolution on mobile devices to gain some
+    // performance, uncomment the following line:
+    // config.devicePixelRatio = 1;
 
-unityShowBanner('WebGL builds are not supported on mobile devices.');
-        } else {
+    unityShowBanner('WebGL builds are not supported on mobile devices.');
+} else {
     // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
     canvas.style.width = "960px";
-canvas.style.height = "600px";
-        }
+    canvas.style.height = "600px";
+}
 
 loadingBar.style.display = "block";
 
 var script = document.createElement("script");
 script.src = loaderUrl;
-        script.onload = () => {
+script.onload = () => {
     document.getElementById("startButton").addEventListener("click", function () {
         createUnityInstance(canvas, config, (progress) => {
             progressBarFull.style.width = 100 * progress + "%";
@@ -88,7 +88,7 @@ script.src = loaderUrl;
             alert(message);
         });
     });
-        };
+};
 document.body.appendChild(script);
 
 // Modal Script
@@ -99,90 +99,159 @@ var signInButton = document.getElementById('sign-in-button');
 // Show the modal when the sign in button is clicked
 signInButton.onclick = function (event) {
     event.preventDefault();
-modal.classList.add("show");
-        }
+    modal.classList.add("show");
+}
 
 // Script for login / sign up form
 const loginBtn = document.getElementById('login');
 const signupBtn = document.getElementById('signup');
 
-        loginBtn.addEventListener('click', (e) => {
+loginBtn.addEventListener('click', (e) => {
     let parent = e.target.parentNode.parentNode;
-            Array.from(e.target.parentNode.parentNode.classList).find((element) => {
-                if (element !== "slide-up") {
-    parent.classList.add('slide-up')
-} else {
-    signupBtn.parentNode.classList.add('slide-up')
-                    parent.classList.remove('slide-up')
-                }
-            });
-        });
+    Array.from(e.target.parentNode.parentNode.classList).find((element) => {
+        if (element !== "slide-up") {
+            parent.classList.add('slide-up')
+        } else {
+            signupBtn.parentNode.classList.add('slide-up')
+            parent.classList.remove('slide-up')
+        }
+    });
+});
 
-        signupBtn.addEventListener('click', (e) => {
+signupBtn.addEventListener('click', (e) => {
     let parent = e.target.parentNode;
-            Array.from(e.target.parentNode.classList).find((element) => {
-                if (element !== "slide-up") {
-    parent.classList.add('slide-up')
-} else {
-    loginBtn.parentNode.parentNode.classList.add('slide-up')
-                    parent.classList.remove('slide-up')
-                }
-            });
-        });
+    Array.from(e.target.parentNode.classList).find((element) => {
+        if (element !== "slide-up") {
+                parent.classList.add('slide-up')
+        } else {
+            loginBtn.parentNode.parentNode.classList.add('slide-up')
+            parent.classList.remove('slide-up')
+        }
+    });
+});
 
 // Hide the modal when the user clicks outside the form
 window.onclick = function (event) {
-            if (event.target == modal) {
-    modal.classList.remove("show");
-            }
-        }
+    if (event.target == modal) {
+        modal.classList.remove("show");
+    }
+}
 
-/* Submit the form using AJAX
-    * ==========================
-    * This script will prevent the form from being submitted in the usual way and instead submit it using AJAX. 
-    * The serialize method is used to create a string of the form data, which is sent to the server. 
-    * If the server responds with a success status, a message is shown in the modal form. 
-    * If an error occurs, an error message is shown.
-    */
+// Submitting the form using AJAX instead of returning views because I don't want to send the user to a new page.
+
+// This script handles the sign up portion of the form.
 $('#signup-form').on('submit', function (e) {
+    // This will prevent the form from being submitted in the usual way
     e.preventDefault();
 
-var username = $(this).find('input[name="Username"]').val();
-var password = $(this).find('input[name="Password"]').val();
-var email = $(this).find('input[name="Email"]').val();
+    var username = $('input[name="NewUsername"]');
+    var email = $('input[name="NewEmail"]');
+    var password = $('input[name="NewPassword"]');
+    var message = $('#signup-message');
 
-$.ajax({
-    type: 'POST',
-url: '/User/Create',
-data: {
-    Username: username,
-Password: password,
-Email: email
-                },
-success: function (data) {
-    alert("User " + data.username + " created successfully!");
-                },
-error: function (jqXHR) {
-                    var response = jqXHR.responseJSON;
-if (response.error) {
-    alert("An error occurred: " + response.error.join("\n"));
-                    }
-                }
-            });
-        });
+    // Clear previous messages
+    message.empty();
 
-// Password strength checker
-$(document).ready(function () {
-    $('#Password').on('input', function () {
-        var password = $(this).val();
-        var hasUpperCase = /[A-Z]/.test(password);
-        var hasLowerCase = /[a-z]/.test(password);
-        var hasNumbers = /\d/.test(password);
-        var hasNonalphas = /\W/.test(password);
-        if (hasUpperCase && hasLowerCase && hasNumbers && hasNonalphas) {
-            $('#passwordHelp').text('Password is strong').css('color', 'green');
-        } else {
-            $('#passwordHelp').text('Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character').css('color', 'red');
+    // Validate username
+    if (username.val() === '') {
+        message.append('<p class="error">Username required</p>');
+        username.focus();
+        return;
+    }
+
+    // Validate email
+    if (email.val() === '') {
+        message.append('<p class="error">Email required</p>');
+        email.focus();
+        return;
+    }
+
+    // Validate password
+    if (password.val() === '') {
+        message.append('<p class="error">Password required</p>');
+        password.focus();
+        return;
+    }
+
+    // Check password strength
+    var passwordStrengthRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    if (!passwordStrengthRegex.test(password.val())) {
+        message.append('<p class="error">Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 digit, and be at least 8 characters long</p>');
+        password.focus();
+        return;
+    }
+
+    // If all validations pass, submit the form data. 
+    // The serialize method is used to create a string of the form data, which is sent to the server. 
+    // If the server responds with a success status, a message is shown in the modal form. 
+    // If an error occurs, an error message is shown.
+    $.ajax({
+        type: 'POST',
+        url: '/User/Create',
+        data: {
+            Username: username.val(),
+            Password: password.val(),
+            Email: email.val()
+        },
+        success: function (data) {
+            if (data.username) {
+                alert("User " + data.username + " created successfully!");
+                $('#login-modal').modal('hide'); // Close the modal
+            }
+        },
+        error: function (jqXHR) {
+            var response = jqXHR.responseJSON;
+            if (response.error) {
+                alert("An error occurred: " + response.error.join("\n"));
+            }
+        }
+    });
+});
+
+// This script handles the login portion of the form.
+$('#login-form').on('submit', function (e) {
+    e.preventDefault();
+
+    var usernameOrEmail = $('input[name="UsernameOrEmail"]');
+    var password = $('input[name="UserPassword"]');
+    var message = $('#login-message');
+
+    message.empty();
+
+    // Validate username
+    if (usernameOrEmail.val() === '') {
+        message.append('<p class="error">Email or Username required</p>');
+        usernameOrEmail.focus();
+        return;
+    }
+
+    // Validate password
+    if (password.val() === '') {
+        message.append('<p class="error">Password incorrect</p>');
+        password.focus();
+        return;
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '/User/Login',
+        data: {
+            UsernameOrEmail: usernameOrEmail.val(),
+            Password: password.val()
+        },
+        success: function (data) {
+            if (data.success) {
+                alert("User logged in successfully!");
+                document.getElementById('login-modal').classList.remove("show"); // Close the modal
+            } else {
+                alert("An error occurred: " + data.error.join("\n"));
+            }
+        },
+        error: function (jqXHR) {
+            var response = jqXHR.responseJSON;
+            if (response.error) {
+                alert("An error occurred: " + response.error.join("\n"));
+            }
         }
     });
 });
