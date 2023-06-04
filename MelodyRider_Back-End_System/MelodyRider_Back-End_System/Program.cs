@@ -15,6 +15,14 @@ builder.Services.AddIdentity<User, IdentityRole>()
 	.AddEntityFrameworkStores<GameDbContext>()
 	.AddDefaultTokenProviders();
 
+// Configure Identity options
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 8;
+    options.Password.RequiredUniqueChars = 0;
+});
+
 // Add controllers with views
 builder.Services.AddControllersWithViews();
 
