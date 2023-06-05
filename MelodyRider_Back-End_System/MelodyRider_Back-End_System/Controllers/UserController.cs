@@ -26,12 +26,6 @@ namespace MelodyRider_Back_End_System.Controllers
             return View(await _context.Users.ToListAsync());
         }
 
-        // GET: Users/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
         // POST: Users/Create (Signup)
         [HttpPost]
 		public async Task<IActionResult> Create(SignupViewModel model)
