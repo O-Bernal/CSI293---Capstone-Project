@@ -10,6 +10,12 @@ body, .nav, .menu {
     align-items: center;
 }
 
+ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
 .nav {
     position: relative;
     background-color: #444;

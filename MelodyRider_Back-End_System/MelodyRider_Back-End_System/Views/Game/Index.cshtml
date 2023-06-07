@@ -17,11 +17,24 @@
             <span></span>
             <span></span>
             <div class="menu">
-                <li><a asp-controller="Home" asp-action="Index">home</a></li>
-                <li>|</li>
-                <li><a href="https://github.com/O-Bernal/CSI293---Capstone-Project">github</a></li>
-                <li>|</li>
-            <li><a id="sign-in-button" href="#">sign in</a></li>
+                <ul>
+                    <li><a asp-controller="Home" asp-action="Index">home</a></li>
+                    <li>|</li>
+                    <li><a href="https://github.com/O-Bernal/CSI293---Capstone-Project">github</a></li>
+                    <li>|</li>
+                    <li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <form method="post" action="/User/Logout">
+                                <button type="submit">Sign Out</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a href="#" id="sign-in-button">Sign In</a>
+                        }
+                    </li>
+                </ul>
             </div>
         </div>
 
@@ -49,7 +62,7 @@
                             <input type="password" class="input" placeholder="Password" name="NewPassword" />
                         </div>
                         <div id="signup-message"></div>
-                        <button class="submit-btn">Sign up</button>
+                        <button type="submit" class="submit-btn">Sign up</button>
                     </form>
                 </div>
                 <div class="login slide-up">

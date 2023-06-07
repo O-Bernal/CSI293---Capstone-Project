@@ -54,8 +54,6 @@ namespace MelodyRider_Back_End_System.Controllers
 			return Json(new { error = errors });
 		}
 
-        // Other actions for Edit, Details, Delete...
-
         // POST: Users/Login
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
@@ -92,6 +90,16 @@ namespace MelodyRider_Back_End_System.Controllers
             var errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
             return Json(new { error = errors });
         }
+
+        // POST: Users/Logout
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Game");
+        }
+
+        // Other actions for Edit, Details, Delete...
 
     }
 

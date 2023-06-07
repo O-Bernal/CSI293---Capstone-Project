@@ -243,6 +243,7 @@ $('#login-form').on('submit', function (e) {
             if (data.success) {
                 alert("User logged in successfully!");
                 document.getElementById('login-modal').classList.remove("show"); // Close the modal
+                location.reload(); // Refresh the page
             } else {
                 alert("An error occurred: " + data.error.join("\n"));
             }

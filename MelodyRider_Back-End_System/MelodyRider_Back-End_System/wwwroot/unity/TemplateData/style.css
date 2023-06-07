@@ -166,7 +166,7 @@ body {
     -webkit-transition: all .3s ease;
 }
 
-.form-structor .signup .slide-up .form-holder, .form-structor .signup.slide-up .submit-btn {
+.form-structor .signup .slide-up .form-holder, .form-structor .signup .slide-up .submit-btn {
     opacity: 0;
     visibility: hidden;
 }
@@ -215,7 +215,7 @@ body {
     line-height: 30px;
     padding: 8px 15px;
     border-bottom: 1px solid #eee;
-    width: 100%;
+    width: 87%;
     font-size: 12px;
 }
 
@@ -318,7 +318,7 @@ body {
     line-height: 30px;
     padding: 8px 15px;
     border-bottom: 1px solid #eee;
-    width: 100%;
+    width: 87%;
     font-size: 12px;
 }
 

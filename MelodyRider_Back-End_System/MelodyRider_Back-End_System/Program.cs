@@ -51,6 +51,10 @@ app.UseStaticFiles(new StaticFileOptions
 // Enable routing
 app.UseRouting();
 
+// Enable authentication and authorization
+app.UseAuthentication();
+app.UseAuthorization();
+
 // Map controllers
 app.MapControllers();
 
