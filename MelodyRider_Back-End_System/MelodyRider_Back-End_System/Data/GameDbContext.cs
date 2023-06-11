@@ -34,8 +34,12 @@ namespace MelodyRider_Back_End_System.Data
 
 			// Seed scores
 			modelBuilder.Entity<Score>().HasData(
-				new Score { ScoreId = 1, UserId = "2", GameId = 1, ScoreValue = 1000 }
-			);
+				new Score { ScoreId = 1, UserId = "2", GameId = 1, ScoreValue = 1000 },
+                new Score { ScoreId = 2, UserId = "2", GameId = 1, ScoreValue = 900 },
+                new Score { ScoreId = 3, UserId = "2", GameId = 1, ScoreValue = 800 },
+                new Score { ScoreId = 4, UserId = "2", GameId = 1, ScoreValue = 700 },
+                new Score { ScoreId = 5, UserId = "2", GameId = 1, ScoreValue = 600 }
+            );
 
 			// Seed achievements
 			modelBuilder.Entity<Achievement>().HasData(
