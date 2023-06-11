@@ -17,7 +17,9 @@ ul {
 }
 
 .nav {
-    position: relative;
+    position: fixed;
+    top: 5px;
+    left: 20px;
     background-color: #444;
     padding: 20px;
     transition: 0.5s;
@@ -50,11 +52,26 @@ ul {
     text-decoration: none;
     color: #ababab;
     text-transform: uppercase;
-    font-weight: 600;
     transition: 0.5s;
 }
 
 .menu li a:hover {
+    color: #ffffff;
+}
+
+.nav-button {
+    background: none;
+    border: none;
+    text-decoration: none;
+    color: #ababab;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.5s;
+    font-size: inherit;
+}
+
+.nav-button:hover {
     color: #ffffff;
 }
 
