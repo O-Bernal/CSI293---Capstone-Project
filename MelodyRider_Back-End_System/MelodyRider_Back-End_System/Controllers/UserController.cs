@@ -99,6 +99,64 @@ namespace MelodyRider_Back_End_System.Controllers
             return RedirectToAction("Index", "Game");
         }
 
+        // Redirect to the profile page
+        [HttpGet]
+        public async Task<IActionResult> Profile()
+        {
+            var user = await _context.Users
+                .Include(u => u.Scores)
+                .FirstOrDefaultAsync(u => u.Id == _userManager.GetUserId(User));
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+        // Redirect to the settings page
+        [HttpGet]
+        public async Task<IActionResult> Settings()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+        // POST: Users/UpdateSettings
+        [HttpPost]
+        public async Task<IActionResult> UpdateSettings(string username, string email)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.UserName = username;
+            user.Email = email;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Settings");
+            }
+
+            // If there were errors, add them to the ModelState
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View("Settings", user);
+        }
+
+
         // Other actions for Edit, Details, Delete...
 
     }

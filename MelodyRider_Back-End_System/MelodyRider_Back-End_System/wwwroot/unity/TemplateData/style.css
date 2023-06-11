@@ -9,15 +9,27 @@ body {
     text-align: center;
 }
 
+.container {
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+}
+
+/* Unity Player CSS */
 #unity-container {
-    position: absolute;
+    flex: 3;
+    /* Add any additional styling for the Unity player here */
+    position: relative; /* Override the absolute positioning */
+    left: auto; /* Override the left positioning */
+    top: auto; /* Override the top positioning */
+    transform: none; /* Override the transform */
     box-shadow: 0 8px 15px rgba(0,0,0,.2);
 }
 
 #unity-container.unity-desktop { 
     left: 50%; 
     top: 50%; 
-    transform: translate(-50%, -50%) 
+    transform: translate(-70%, 0);
 }
 
 #unity-container.unity-mobile { 
@@ -25,9 +37,11 @@ body {
     height: 100% 
 }
 
-#unity-canvas { 
+#unity-canvas {
     background: #3f3f3f;
     border-radius: 5px;
+    border-bottom-style: solid;
+    border-bottom-color: #1f1f1f;
 }
 
 .unity-mobile #unity-canvas { 
@@ -149,7 +163,7 @@ body {
     background-image: url(/images/carbon-fiber1.jpg)
 }
 
-/* Signup Part */
+/* Modal Signup */
 .form-structor .signup {
     position: absolute;
     top: 50%;
@@ -249,7 +263,7 @@ body {
     background-color: rgba(0,0,0,0.8);
 }
 
-/* Login Part */
+/* Modal Login */
 .form-structor .login {
     position: absolute;
     top: 20%;
@@ -382,4 +396,53 @@ body {
     opacity: 1;
     visibility: visible;
     -webkit-transition: all .3s ease;
+}
+
+/* User Badge CSS */
+.user-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    background-color: #444;
+    color: #ababab;
+    border-radius: 6px;
+    box-shadow: 0 8px 15px rgba(0,0,0,.2);
+    z-index: 900;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropbtn {
+    background: none;
+    border: none;
+    cursor: pointer;
 }

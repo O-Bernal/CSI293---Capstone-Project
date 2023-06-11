@@ -37,7 +37,7 @@ var config = {
     codeUrl: buildUrl + "/unity.wasm.br",
     streamingAssetsUrl: "StreamingAssets",
     companyName: "DefaultCompany",
-    productName: "Rhythm Game Web App",
+    productName: "Melody Rider - Alpha Build",
     productVersion: "1.0",
     showBanner: unityShowBanner,
 };
@@ -137,7 +137,7 @@ window.onclick = function (event) {
     }
 }
 
-// Submitting the form using AJAX instead of returning views because I don't want to send the user to a new page.
+// Submitting the form using AJAX
 
 // This script handles the sign up portion of the form.
 $('#signup-form').on('submit', function (e) {
@@ -206,6 +206,29 @@ $('#signup-form').on('submit', function (e) {
             }
         }
     });
+
+    // The following code is an alternative to the above AJAX call.
+    //fetch('/User/Create', {
+    //    method: 'POST',
+    //    headers: {
+    //        'Content-Type': 'application/json'
+    //    },
+    //    body: JSON.stringify({
+    //        Username: username.val(),
+    //        Password: password.val(),
+    //        Email: email.val()
+    //    })
+    //})
+    //.then(response => response.json())
+    //.then(data => {
+    //    if (data.username) {
+    //        alert("User " + data.username + " created successfully!");
+    //        $('#login-modal').modal('hide'); // Close the modal
+    //    }
+    //})
+    //.catch(error => {
+    //    alert("An error occurred: " + error);
+    //});
 });
 
 // This script handles the login portion of the form.
@@ -255,4 +278,35 @@ $('#login-form').on('submit', function (e) {
             }
         }
     });
+
+    // The following code is an alternative to the above AJAX call.
+    //fetch('/User/Login', {
+    //    method: 'POST',
+    //    headers: {
+    //        'Content-Type': 'application/json'
+    //    },
+    //    body: JSON.stringify({
+    //        UsernameOrEmail: usernameOrEmail.val(),
+    //        Password: password.val()
+    //    })
+    //})
+    //.then(response => {
+    //    if (!response.ok) {
+    //        throw new Error("HTTP error " + response.status);
+    //    }
+    //    return response.json();
+    //})
+    //.then(data => {
+    //    if (data.success) {
+    //        alert("User logged in successfully!");
+    //        document.getElementById('login-modal').classList.remove("show"); // Close the modal
+    //        location.reload(); // Refresh the page
+    //    } else {
+    //        alert("An error occurred: " + data.error.join("\n"));
+    //    }
+    //})
+    //.catch(error => {
+    //    alert("An error occurred: " + error);
+    //});
+    // Fetch requires you to manually set the headers and stringify the body, unlike jQuery AJAX which does it for you.
 });
