@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="~/css/nav.css">
         <link rel="stylesheet" href="~/css/leaderboard.css">
         <link rel="stylesheet" href="~/css/font-awesome.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     </head>
     <body style="position: relative;">
         <div class="nav">
@@ -41,28 +40,27 @@
             </div>
         </div>
 
-        @inject UserManager<User> UserManager
-        @{
-            var user = await UserManager.GetUserAsync(User);
-        }
-        @if (user != null)
-        {
-            <div class="user-badge">
-                Hello, @user.UserName!
-                <div class="dropdown">
-                    <button class="dropbtn">
-                        <i class="fa fa-user" aria-hidden="true"></i>
-                    </button>
-                    <div class="dropdown-content">
-                        <a href="@Url.Action("Profile", "User")">Profile</a>
-                        <a href="@Url.Action("Settings", "User")">Settings</a>
-                        <form method="post" action="/User/Logout">
-                            <button type="submit">Logout</button>
-                        </form>
-                    </div>
+    @inject UserManager<User> UserManager
+    @{
+        var user = await UserManager.GetUserAsync(User);
+    }
+    @if (user != null)
+    {
+        <div class="user-badge">
+            Hello, @user.UserName!
+            <div class="dropdown">
+                <button class="dropbtn">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="@Url.Action("Settings", "User")">Profile / Settings</a>
+                    <form method="post" action="/User/Logout">
+                        <button type="submit">Logout</button>
+                    </form>
                 </div>
             </div>
-        }
+        </div>
+    }
 
         <div id="login-modal" class="modal">
             <div class="form-structor">
@@ -156,6 +154,7 @@
         </div>
         </div>
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="~/js/GameIndexScripts.js"></script>
     </body>
 </html>
