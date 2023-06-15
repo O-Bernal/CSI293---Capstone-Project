@@ -32,28 +32,27 @@
 		<link rel="stylesheet" href="~/css/templatemo-style.css">
 
 	</head>
-
-    
+ 
 	<body>
 		@RenderBody()
+
+		<!-- Script Section -->
+		<!-- jQuery -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+		<!-- bootstrap -->
+		<script src="~/js/bootstrap.min.js"></script>
+		<!-- wow -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+		<!-- fullpage -->
+		<script src="~/js/jquery.fullPage.js"></script>
+		<!-- smoothScroll -->
+		<script src="~/js/smoothscroll.js"></script>
+		<!-- text rotater -->
+		<script src="~/js/jquery.simple-text-rotator.js"></script>
+		<!-- custom -->
+		<script src="~/js/custom.js"></script>
+
+		@RenderSection("Scripts", required: false)
 	</body>
 
-
 </html>
-
-<!-- Script Section -->
-
-<!-- jQuery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
-<!-- bootstrap -->
-<script src="~/js/bootstrap.min.js"></script>
-<!-- wow -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
-<!-- fullpage -->
-<script src="~/js/jquery.fullPage.js"></script>
-<!-- smoothScroll -->
-<script src="~/js/smoothscroll.js"></script>
-<!-- text rotater -->
-<script src="~/js/jquery.simple-text-rotator.js"></script>
-<!-- custom -->
-<script src="~/js/custom.js"></script>
