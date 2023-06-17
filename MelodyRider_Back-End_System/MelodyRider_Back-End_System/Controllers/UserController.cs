@@ -76,6 +76,13 @@ namespace MelodyRider_Back_End_System.Controllers
 
                 if (user != null)
                 {
+                    // Check if the user is deleted
+                    if (user.IsDeleted)
+                    {
+                        // Return a JSON object with an error message
+                        return Json(new { error = new[] { "Invalid login attempt." } });
+                    }
+
                     var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
                     if (result.Succeeded)
                     {
@@ -117,10 +124,12 @@ namespace MelodyRider_Back_End_System.Controllers
                 Email = user.Email
             };
 
-            return View((model, user));
+            var scores = _context.Scores.Where(s => s.UserId == user.Id).ToList();
+
+            return View((model, user, scores));
         }
 
-        // POST: Update the User's information
+        /* Old Settings Action
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Settings(UserSettingsViewModel model)
@@ -173,7 +182,73 @@ namespace MelodyRider_Back_End_System.Controllers
             // If the model state is not valid, or no data has changed, return the same view
             return View((model, user));
         }
+        */
+        // POST: Update the User's information
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateDetails(UserSettingsViewModel model)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
 
+            // If the user is not trying to change their password, we check if they changed their username and/or email
+            // and attempt to update the user's information with our TryUpdateUser method.
+            bool dataChanged = await TryUpdateUser(user, model);
+            if (dataChanged)
+            {
+                return RedirectToAction("Settings");
+            }
+
+            var scores = _context.Scores.Where(s => s.UserId == user.Id).ToList();
+
+            // If the model state is not valid, or no data has changed, return the same view
+            return View("Settings", (model, user, scores));
+        }
+
+        // POST: Update the User's password
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(UserSettingsViewModel model)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            // User is trying to change their password
+            // So we check each password field for null or empty values
+            if (string.IsNullOrEmpty(model.OldPassword))
+            {
+                ModelState.AddModelError("OldPassword", "You must enter your current password to change your password.");
+            }
+            if (string.IsNullOrEmpty(model.NewPassword))
+            {
+                ModelState.AddModelError("NewPassword", "Please enter a new password.");
+            }
+            if (string.IsNullOrEmpty(model.ConfirmPassword))
+            {
+                ModelState.AddModelError("ConfirmPassword", "Please confirm your new password.");
+            }
+            // If all password fields are filled, we proceed...
+            if (!string.IsNullOrEmpty(model.OldPassword) && !string.IsNullOrEmpty(model.NewPassword) && !string.IsNullOrEmpty(model.ConfirmPassword))
+            {
+                if (await TryChangePassword(user, model))
+                {
+                    return RedirectToAction("Settings");
+                }
+            }
+
+            var scores = _context.Scores.Where(s => s.UserId == user.Id).ToList();
+
+            // If the model state is not valid, return the same view
+            return View("Settings", (model, user, scores));
+        }
+
+        // Helper methods that try to update the user's information and password
         private async Task<bool> TryChangePassword(User user, UserSettingsViewModel model)
         {
             // All password fields are filled, so try to change the password and call the _userManager.ChangePasswordAsync() method.
@@ -183,7 +258,7 @@ namespace MelodyRider_Back_End_System.Controllers
                 // Add the errors to the ModelState
                 foreach (var error in changePasswordResult.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError("OldPassword", error.Description);
                 }
             }
             // Otherwise, return the result of the password change
@@ -191,50 +266,78 @@ namespace MelodyRider_Back_End_System.Controllers
         }
         private async Task<bool> TryUpdateUser(User user, UserSettingsViewModel model)
         {
-            // Check if the model state is valid and if any data has changed
-            if (ModelState.IsValid)
+            bool dataChanged = false;
+
+            // Check each property of the user to see if it has changed
+            if (!string.IsNullOrEmpty(model.UserName) && !user.UserName.Equals(model.UserName))
             {
-                bool dataChanged = false;
+                user.UserName = model.UserName;
+                dataChanged = true;
+            }
+            if (!string.IsNullOrEmpty(model.Email) && !user.Email.Equals(model.Email))
+            {
+                user.Email = model.Email;
+                dataChanged = true;
+            }
 
-                // Check each property of the user to see if it has changed
-                if (!user.UserName.Equals(model.UserName))
+            // If any data has changed, update the user
+            if (dataChanged)
+            {
+                var result = await _userManager.UpdateAsync(user);
+                if (!result.Succeeded)
                 {
-                    user.UserName = model.UserName;
-                    dataChanged = true;
-                }
-                if (!user.Email.Equals(model.Email))
-                {
-                    user.Email = model.Email;
-                    dataChanged = true;
-                }
-
-                // If any data has changed, update the user
-                if (dataChanged)
-                {
-                    var result = await _userManager.UpdateAsync(user);
-                    if (!result.Succeeded)
+                    foreach (var error in result.Errors)
                     {
-                        foreach (var error in result.Errors)
-                        {
-                            _logger.LogError(error.Description);
-                        }
+                        _logger.LogError(error.Description);
                     }
-                    return result.Succeeded;
                 }
+                return result.Succeeded;
             }
-            // Logs model state errors
-            else
-            {
-                var errors = ModelState.Values.SelectMany(v => v.Errors);
-                foreach (var error in errors)
-                {
-                    _logger.LogError(error.ErrorMessage);
-                }
-            }
+
             return false;
         }
 
-        // Other actions for Edit, Details, Delete...
+        // POST: Users/SoftDelete
+        [HttpPost]
+        public async Task<IActionResult> Delete([FromBody] UserSettingsViewModel model)
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null || currentUser.IsDeleted)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            // Check if the password is correct
+            var password = model.OldPassword;
+            var passwordCheck = await VerifyPassword(currentUser, password);
+            if (!passwordCheck)
+            {
+                return BadRequest("Incorrect password.");
+            }
+
+            currentUser.IsDeleted = true;
+            var result = await _userManager.UpdateAsync(currentUser);
+
+            if (result.Succeeded)
+            {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction("Index", "Game");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View("Settings", (new UserSettingsViewModel(), currentUser));
+        }
+
+        // Helper method that verifies the user's password
+        private async Task<bool> VerifyPassword(User user, string password)
+        {
+            return await _userManager.CheckPasswordAsync(user, password);
+        }
+
     }
 
 }

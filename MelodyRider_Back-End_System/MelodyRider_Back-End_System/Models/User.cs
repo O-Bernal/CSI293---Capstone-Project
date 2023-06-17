@@ -8,8 +8,10 @@ namespace MelodyRider_Back_End_System.Models
 		[StringLength(50)]
 		public string Role { get; set; }
 
-		// Navigation property
-		public ICollection<Score> Scores { get; set; }
+        public bool IsDeleted { get; set; }
+
+        // Navigation property
+        public ICollection<Score> Scores { get; set; }
 	}
 
 }

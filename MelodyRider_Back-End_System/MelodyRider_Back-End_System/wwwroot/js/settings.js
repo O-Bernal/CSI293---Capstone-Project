@@ -7,24 +7,53 @@
         var newPassword = $('#newPassword').val();
         var confirmPassword = $('#confirmPassword').val();
 
-        if (!username || !email) {
-            alert('Username and email fields cannot be empty.');
+        if (!username && !email && !currentPassword && !newPassword && !confirmPassword) {
+            alert('No changes made.');
             e.preventDefault();
         }
-
         if ((newPassword || confirmPassword) && !currentPassword) {
             alert('You must enter your current password to change your password.');
             e.preventDefault();
         }
+        if (newPassword !== confirmPassword) {
+            alert('New password and confirm password do not match.');
+            e.preventDefault();
+        }
     });
 
-    // Add an 'edit' button to toggle the editability of the username and email fields
-    $('#edit-username').click(function () {
-        var usernameInput = $('#username');
-        usernameInput.prop('readonly', !usernameInput.prop('readonly'));
+    // Toggle visibility of scores table when "View Scores" button is clicked
+    $('#viewScoresButton').click(function (event) {
+        event.preventDefault();
+        $('#scoresTable').toggle();
     });
-    $('#edit-email').click(function () {
-        var emailInput = $('#email');
-        emailInput.prop('readonly', !emailInput.prop('readonly'));
+
+    // Show the delete modal when the delete button is clicked
+    $('#deleteButton').click(function (event) {
+        event.preventDefault();
+        $('#deleteModal').modal('show');
+    });
+
+    // Verify the user's password when the delete button is clicked
+    $('#confirmDelete').click(function () {
+        var password = $('#deleteConfirmPassword').val();
+        if (password) {
+            $.ajax({
+                type: 'POST',
+                url: deleteUrl,
+                data: JSON.stringify({ OldPassword: password }),
+                contentType: 'application/json',
+                success: function (response) {
+                    if (response === true) {
+                        // Password is correct and user is deleted
+                        alert('User deleted successfully.');
+                        window.location.href = '@Url.Action("Index", "Game")';
+                    } else {
+                        alert('Incorrect password.');
+                    }
+                }
+            });
+        } else {
+            alert('You must enter your password to confirm deletion.');
+        }
     });
 });

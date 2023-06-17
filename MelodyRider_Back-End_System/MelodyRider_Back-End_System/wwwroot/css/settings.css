@@ -1,0 +1,164 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400;500&display=swap");
+body {
+    margin-top: 50px;
+    color: white;
+    background: #747474;
+}
+
+.container {
+    background-color: #8e8e8e;
+    border-radius: 9px;
+    padding: 25px;
+    display: flex;
+    align-items: flex-start;
+    font-family: 'Baloo Paaji 2', cursive;
+    box-shadow: 0 8px 15px rgba(0,0,0,.2);
+    flex-wrap: wrap;
+    gap: 20px;
+    transition: all 0.5s ease;
+}
+
+@media (max-width: 993px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.button-bar {
+    background-color: #8e8e8e;
+    border-radius: 9px;
+    margin: 25px 165px;
+    padding: 5px 20px 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 50px;
+    justify-items: center;
+    font-family: 'Baloo Paaji 2', cursive;
+    box-shadow: 0 8px 15px rgba(0,0,0,.2);
+    transition: all 0.5s ease;
+}
+
+.button-bar a{
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.5s ease;
+    width: fit-content;
+}
+
+@media (max-width: 993px) {
+    .button-bar {
+        align-items: center;
+        grid-template-columns: 1fr;
+        justify-content: center;
+        margin: 25px 0;
+    }
+}
+
+.profile-card {
+    flex: 1;
+    min-width: 0;
+}
+
+.settings-form-container {
+    flex: 2;
+    min-width: 0;
+}
+
+.settings-form-container h2 {
+    color: #222831;
+    font-weight: 900;
+}
+
+#settings-form {
+    background-color: #222831;
+    border-radius: 9px;
+    padding: 30px;
+    box-shadow: 0 8px 15px rgba(0,0,0,.2);
+    min-width: 300px;
+}
+
+.card {
+    min-width: 300px;
+    max-width: 400px;
+    height: 554px;
+    background-color: #222831;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.7);
+    color: white;
+    box-shadow: 0 8px 15px rgba(0,0,0,.2);
+}
+
+.card__name {
+    margin-top: 35px;
+    font-size: 1.6em;
+}
+
+.card__image {
+    height: 160px;
+    width: 160px;
+    border-radius: 50%;
+    border: 5px solid #272133;
+    margin-top: 20px;
+    box-shadow: 0 10px 50px rgba(235, 25, 110, 1);
+}
+
+.btn {
+    border: none;
+    cursor: pointer;
+    line-height: 1.5;
+    padding: 0.75em 2em;
+    letter-spacing: 0.05rem;
+    margin-top: 0.3em;
+}
+
+.btn:focus {
+    outline: 2px dotted #55d7dc;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1px;
+}
+
+.score-container {
+    background-color: #8e8e8e;
+    border-radius: 9px;
+    margin: 0 165px;
+    padding: 25px;
+    font-family: 'Baloo Paaji 2', cursive;
+    box-shadow: 0 8px 15px rgba(0,0,0,.2);
+    transition: all 0.5s ease;
+}
+
+.score-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.score-container th, .score-container td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.score-container tr:hover {
+    background-color: #f5f5f5;
+}
+
+.modal-content {
+    background-color: #222831;
+    border-radius: 9px;
+    padding: 30px;
+    box-shadow: 0 8px 15px rgba(0,0,0,.2);
+    min-width: 300px;
+}
+
+.modal-footer {
+    justify-content: space-evenly;
+}
