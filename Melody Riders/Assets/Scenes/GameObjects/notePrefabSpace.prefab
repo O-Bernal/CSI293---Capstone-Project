@@ -49,9 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 60
-  earlyLateRange: 0.2
-  perfectRange: 0.1
-  hitKey: 0
+  lane: 0
 --- !u!23 &4121120661531300619
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -72,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 235a17db4bf87994e98fc1ce56cad6ef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
