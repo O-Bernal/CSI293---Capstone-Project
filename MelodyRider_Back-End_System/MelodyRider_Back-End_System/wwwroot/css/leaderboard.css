@@ -26,6 +26,18 @@ Leaderboard
     margin: 0 50px;
 }
 
+.leaderboard-btn {
+    background-color: #3a404d;
+    color: #eb2d7c;
+    padding: 9px 16px;
+    margin: 15px 94px;
+    margin-top: 0;
+    text-decoration: none;
+    border-top: 1px solid white;
+    border-bottom: 2px solid #eb2d7c;
+    border-radius: 6px;
+}
+
 .leaderboard h1 {
     font-size: 18px;
     color: #e1e1e1;
@@ -46,6 +58,8 @@ Leaderboard
     counter-reset: leaderboard;
     list-style: none;
     margin-left: -39px;
+    position: relative;
+    z-index: 1030;
 }
 
 .leaderboard ol li {

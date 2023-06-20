@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MelodyRider_Back_End_System.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace MelodyRider_Back_End_System.ViewModels
 {
@@ -18,6 +19,9 @@ namespace MelodyRider_Back_End_System.ViewModels
         [DataType(DataType.Password)]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        public User User { get; set; }
+        public List<Score> Scores { get; set; }
+        public List<UserAchievement> UserAchievements { get; set; }
     }
 
 }

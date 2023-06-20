@@ -118,15 +118,22 @@ namespace MelodyRider_Back_End_System.Controllers
                 return NotFound();
             }
 
+            var scores = _context.Scores.Where(s => s.UserId == user.Id).ToList();
+            var userAchievements = _context.UserAchievements
+                .Include(ua => ua.Achievement) // This line ensures that the Achievement entities are loaded
+                .Where(ua => ua.UserId == user.Id)
+                .ToList();
+
             var model = new UserSettingsViewModel
             {
                 UserName = user.UserName,
-                Email = user.Email
+                Email = user.Email,
+                User = user,
+                Scores = scores,
+                UserAchievements = userAchievements
             };
 
-            var scores = _context.Scores.Where(s => s.UserId == user.Id).ToList();
-
-            return View((model, user, scores));
+            return View(model);
         }
 
         /* Old Settings Action

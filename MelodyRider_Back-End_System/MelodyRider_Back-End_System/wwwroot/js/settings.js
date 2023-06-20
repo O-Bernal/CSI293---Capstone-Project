@@ -24,7 +24,28 @@
     // Toggle visibility of scores table when "View Scores" button is clicked
     $('#viewScoresButton').click(function (event) {
         event.preventDefault();
+        $('#achievementsTable').hide();
         $('#scoresTable').toggle();
+    });
+
+    // Toggle visibility of achievements table when "View Achievements" button is clicked
+    $('#viewAchievementsButton').click(function (event) {
+        event.preventDefault();
+        var url = $(this).data('url');
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                var achievementsTableBody = $('#achievementsTableBody');
+                achievementsTableBody.empty();
+                data.forEach(userAchievement => {
+                    achievementsTableBody.append('<tr><td>' + userAchievement.achievement.name + '</td><td>' + userAchievement.dateEarned + '</td></tr>');
+                });
+                $('#achievementsTable').show();
+                $('#scoresTable').hide();
+            })
+            .catch(() => {
+                toastr.error('There was an error retrieving the achievements');
+            });
     });
 
     // Show the delete modal when the delete button is clicked

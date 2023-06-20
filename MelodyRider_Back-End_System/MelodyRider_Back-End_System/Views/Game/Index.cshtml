@@ -7,11 +7,13 @@
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Unity WebGL Player | Rhythm Game Web App</title>
-        <link rel="shortcut icon" href="~/unity/TemplateData/favicon.ico">
-        <link rel="stylesheet" href="~/unity/TemplateData/style.css">
-        <link rel="stylesheet" href="~/css/nav.css">
-        <link rel="stylesheet" href="~/css/leaderboard.css">
-        <link rel="stylesheet" href="~/css/font-awesome.min.css">
+        <link rel="stylesheet" href="~/css/jquery.fullPage.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="shortcut icon" href="~/unity/TemplateData/favicon.ico" />
+        <link rel="stylesheet" href="~/unity/TemplateData/style.css" />
+        <link rel="stylesheet" href="~/css/nav.css" />
+        <link rel="stylesheet" href="~/css/leaderboard.css" />
+        <link rel="stylesheet" href="~/css/font-awesome.min.css" />
     </head>
     <body style="position: relative;">
         <div class="nav">
@@ -46,14 +48,19 @@
     }
     @if (user != null)
     {
-        <div class="user-badge">
-            Hello, @user.UserName!
+        <div class="user-badge">    
             <div class="dropdown">
-                <button class="dropbtn">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                </button>
+                Hello, @user.UserName!
+                <i class="fa fa-user" aria-hidden="true"></i>
                 <div class="dropdown-content">
                     <a href="@Url.Action("Settings", "User")">Profile / Settings</a>
+                @if (User.IsInRole("Admin"))
+                {   <!-- Admin Options -->                
+                    <a href="@Url.Action("ManageScores", "Admin")">Manage Scores</a>
+                    <a href="@Url.Action("ManageAchievements", "Admin")">Manage Achievements</a>
+                    <a href="@Url.Action("ManageUsers", "Admin")">Manage Users</a>
+                }
+
                     <form method="post" action="/User/Logout">
                         <button type="submit">Logout</button>
                     </form>
@@ -113,6 +120,10 @@
                         </li>
                     }
                 </ol>
+            @if (User.IsInRole("Admin"))
+            {
+                <button type="button" onclick="location.href='@Url.Action("EditScores", "Admin")'" class="leaderboard-btn">Edit Scores</button>
+            }
             </div>
             <svg style="display: none;">
                 <symbol id="cup" x="0px" y="0px" width="25px" height="26px" viewBox="0 0 25 26" enable-background="new 0 0 25 26" xml:space="preserve">
@@ -137,24 +148,25 @@
             </svg>
 
             <div id="unity-container" class="unity-desktop">
-            <canvas id="unity-canvas" width=960 height=600></canvas>
-            <div id="unity-loading-bar">
-                <div id="unity-logo"></div>
-                <div id="unity-progress-bar-empty">
-                    <div id="unity-progress-bar-full"></div>
+                <canvas id="unity-canvas" width=960 height=600></canvas>
+                <div id="unity-loading-bar">
+                    <div id="unity-logo"></div>
+                    <div id="unity-progress-bar-empty">
+                        <div id="unity-progress-bar-full"></div>
+                    </div>
+                    <button id="startButton" data-url='@Url.Action("CreateWelcomeAchievement", "UserAchievement")'>Start Game</button>
                 </div>
-                <button id="startButton">Start Game</button>
+                <div id="unity-warning"> </div>
+                <div id="unity-footer">
+                    <div id="unity-webgl-logo"></div>
+                    <div id="unity-fullscreen-button"></div>
+                    <div id="unity-build-title">Melody Rider | Alpha build</div>
+                </div>
             </div>
-            <div id="unity-warning"> </div>
-            <div id="unity-footer">
-                <div id="unity-webgl-logo"></div>
-                <div id="unity-fullscreen-button"></div>
-                <div id="unity-build-title">Melody Rider | Alpha build</div>
-            </div>
-        </div>
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="~/js/GameIndexScripts.js"></script>
     </body>
 </html>

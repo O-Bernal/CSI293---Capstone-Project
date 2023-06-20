@@ -2,7 +2,7 @@
 body {
     margin-top: 50px;
     color: white;
-    background: #747474;
+    background: #333;
 }
 
 .container {
@@ -31,7 +31,7 @@ body {
     margin: 25px 165px;
     padding: 5px 20px 10px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-column-gap: 50px;
     justify-items: center;
     font-family: 'Baloo Paaji 2', cursive;
@@ -39,7 +39,7 @@ body {
     transition: all 0.5s ease;
 }
 
-.button-bar a{
+.button-bar a, .button-bar button {
     text-decoration: none;
     color: white;
     font-weight: 500;

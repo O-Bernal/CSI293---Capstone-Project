@@ -29,6 +29,11 @@ ul {
     z-index: 1000;
 }
 
+.nav:hover {
+    background-color: #555;
+    box-shadow: 0 8px 15px rgba(0,0,0,.4);
+}
+
 .menu {
     margin: 0;
     padding: 0;

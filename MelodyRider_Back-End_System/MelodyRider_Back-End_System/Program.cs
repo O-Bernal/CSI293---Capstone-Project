@@ -65,4 +65,41 @@ app.UseEndpoints(endpoints =>
         pattern: "{controller=Home}/{action=Index}/{id?}");
 });
 
+//// Ensure admin user is created
+//using (var scope = app.Services.CreateScope())
+//{
+//    var services = scope.ServiceProvider;
+//    await EnsureAdminUserCreated(services);
+//}
+
 app.Run();
+
+//// Method to ensure admin user is created
+//static async Task EnsureAdminUserCreated(IServiceProvider services)
+//{
+//    var userManager = services.GetRequiredService<UserManager<User>>();
+//    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+//    var adminRole = "Admin";
+//    if (!await roleManager.RoleExistsAsync(adminRole))
+//    {
+//        await roleManager.CreateAsync(new IdentityRole(adminRole));
+//    }
+
+//    var adminUser = new User
+//    {
+//        UserName = "Admin",
+//        Email = "admin@example.com",
+//        Role = "Admin"
+//    };
+
+//    var user = await userManager.FindByNameAsync(adminUser.UserName);
+//    if (user == null)
+//    {
+//        var result = await userManager.CreateAsync(adminUser, "AdminPa55");
+//        if (result.Succeeded)
+//        {
+//            await userManager.AddToRoleAsync(adminUser, adminRole);
+//        }
+//    }
+//}

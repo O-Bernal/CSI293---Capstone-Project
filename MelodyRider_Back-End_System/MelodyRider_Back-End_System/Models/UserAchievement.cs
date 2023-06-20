@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace MelodyRider_Back_End_System.Models
 {
@@ -6,6 +7,8 @@ namespace MelodyRider_Back_End_System.Models
     {
         [Required]
         public string UserId { get; set; }
+
+        [JsonIgnore]
         public User User { get; set; }
 
         [Required]

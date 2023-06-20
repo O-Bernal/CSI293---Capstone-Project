@@ -25,7 +25,8 @@ namespace MelodyRider_Back_End_System.Controllers
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var scores = _context.Scores.Where(s => s.UserId == user.Id).ToList();
+            var scores = _context.Scores
+                .Where(s => s.UserId == user.Id).ToList();
 
             var model = new UserSettingsViewModel
             {

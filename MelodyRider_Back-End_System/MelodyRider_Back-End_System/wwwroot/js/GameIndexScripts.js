@@ -77,6 +77,7 @@ var script = document.createElement("script");
 script.src = loaderUrl;
 script.onload = () => {
     document.getElementById("startButton").addEventListener("click", function () {
+        document.getElementById('unity-container').classList.add('game-started');
         createUnityInstance(canvas, config, (progress) => {
             progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
@@ -92,15 +93,19 @@ script.onload = () => {
 document.body.appendChild(script);
 
 // Modal Script
-// Get the modal and the sign in button
-var modal = document.getElementById('login-modal');
-var signInButton = document.getElementById('sign-in-button');
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Get the modal and the sign in button
+    var modal = document.getElementById('login-modal');
+    var signInButton = document.getElementById('sign-in-button');
 
-// Show the modal when the sign in button is clicked
-signInButton.onclick = function (event) {
-    event.preventDefault();
-    modal.classList.add("show");
-}
+    // Show the modal when the sign in button is clicked
+    if (signInButton) {
+        signInButton.onclick = function (event) {
+            event.preventDefault();
+            modal.classList.add("show");
+        }
+    }
+});
 
 // Script for login / sign up form
 const loginBtn = document.getElementById('login');
@@ -131,6 +136,7 @@ signupBtn.addEventListener('click', (e) => {
 });
 
 // Hide the modal when the user clicks outside the form
+var modal = document.getElementById('login-modal');
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.classList.remove("show");
@@ -138,7 +144,6 @@ window.onclick = function (event) {
 }
 
 // Submitting the form using AJAX
-
 // This script handles the sign up portion of the form.
 $('#signup-form').on('submit', function (e) {
     // This will prevent the form from being submitted in the usual way
@@ -230,7 +235,6 @@ $('#signup-form').on('submit', function (e) {
     //    alert("An error occurred: " + error);
     //});
 });
-
 // This script handles the login portion of the form.
 $('#login-form').on('submit', function (e) {
     e.preventDefault();
@@ -309,4 +313,43 @@ $('#login-form').on('submit', function (e) {
     //    alert("An error occurred: " + error);
     //});
     // Fetch requires you to manually set the headers and stringify the body, unlike jQuery AJAX which does it for you.
+});
+
+// Toggle visibility of dropdown when user badge is clicked
+$('.user-badge').click(function (event) {
+    event.stopPropagation(); // Prevent event from bubbling up to document
+    $('.dropdown-content').toggle();
+});
+// Hide dropdown when clicking anywhere else on the document
+$(document).click(function () {
+    $('.dropdown-content').hide();
+});
+
+// This will create and add a new achievement for the user when the start button is clicked.
+// Trying out fetch instead of jQuery AJAX here
+$('#startButton').click(function () {
+    var url = $(this).data('url');
+
+    // Check if a user is logged in
+    if (user) {
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                toastr.options.positionClass = 'toast-bottom-right';
+                toastr.success('First achievement! Welcome ' + data.username + '!');
+            } else {
+                toastr.error(data.message);
+            }
+        })
+        .catch(() => {
+            toastr.error('There was an error creating the achievement');
+        });
+    }
 });
